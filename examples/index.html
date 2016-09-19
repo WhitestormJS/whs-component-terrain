@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      /* Preloading animation */
+      #blocker {
+        color:white;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+        background: rgba(0,0,0,0.7);
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .whs {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+      }
+
+      .whs > canvas {
+        width: inherit !important;
+        height: inherit !important;
+      }
+
+      .preloader {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background: black;
+        top: 0px;
+        left: 0px;
+        z-index: 3;
+      }
+
+      .content {
+        margin-top: 80px;
+        text-align: center;
+        font-weight: lighter;
+      }
+
+      .content h2 {
+        margin-top: 3.5%;
+        margin-bottom: 1.5%;
+      }
+
+      .controls {
+        height: 17.5vh;
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+      }
+
+      .pages ul li a {
+        font-size: 9px;
+      }
+
+      .links ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .links li {
+        display: inline;
+        margin-right: 1.1em;
+        margin-left: 1.1em;
+      }
+
+      .links:first-child{
+        margin-right: 0;
+      }
+
+      .links:last-child{
+        margin-left: 0;
+      }
+
+      .links li a {
+        font-size: 20px;
+        color: white;
+        text-decoration: none;
+      }
+
+      .preloader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .preloader img{
+        width: 15vh;
+        height: auto;
+      }
+
+      .links {
+        position: absolute;
+        bottom: 10%;
+        width: 100%;
+      }
+
+      sub {
+        line-height: 2;
+
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      sub {
+        font-size: 20px;
+      }
+
+      p {
+        color: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+  <div id="blocker">
+    <div class="content">
+      <h1>First Person game <sub>by whitestorm.js</sub></h1>
+    </div>
+    <!--<img class="controls" src="assets/keys.gif"/>-->
+    <div class="links">
+      <p>
+        <h3 style="color: white;">Click anywhere to begin.</h3>
+      </p>
+      <p>
+        *Take a tour around this scene,
+        use the WASD keys to move and your mouse to look around.
+      </p>
+      <ul>
+        <li><a href="http://github.com/whitestormjs/whitestorm.js" target="_blank" title="collaborate in github"><span class="icon-github"></a></span> </li>
+        <li><a href="https://twitter.com/whitestormjs" target="_blank" title="we in twitter"><span class="icon-twitter"></a></span> </li>
+      </ul>
+    </div>
+  </div>
+    <script src="./vendor/whitestorm.js"></script>
+    <script src="./build/whs-component-Terrain.js"></script>
+    <script type="text/javascript">
+    const GAME = new WHS.World({
+      stats: 'fps', // fps, ms, mb
+      autoresize: "window",
+
+      gravity: {
+        x: 0,
+        y: -100,
+        z: 0
+      },
+
+      camera: {
+        far: 10000
+      },
+
+      shadowmap: {
+        type: THREE.PCFShadowMap
+      },
+
+      physics: {
+        fixedTimeStep: 1 / 120
+      },
+
+      background: {
+        color: 0x70DBFF
+      }
+    });
+
+    const terrain = new WHS.Terrain({
+      geometry: {
+        map: 'assets/terrain/default_terrain.png',
+        depth: 100,
+        width: 256,
+        height: 256
+      },
+
+      mass: 0,
+
+      physics: {
+        friction: 1,
+        restitution: 0
+      },
+
+      material: ['default',
+        [
+          WHS.texture('assets/textures/terrain/dirt-512.jpg', {}),
+          WHS.texture('assets/textures/terrain/sand-512.jpg', {}),
+          WHS.texture('assets/textures/terrain/grass-512.jpg', {}),
+          WHS.texture('assets/textures/terrain/rock-512.jpg', {}),
+          WHS.texture('assets/textures/terrain/snow-512.jpg', {})
+        ]
+      ],
+
+      pos: {
+        x: 0,
+        y: 0,
+        z: 0
+      }
+    });
+
+    terrain.addTo(GAME, 'wait');
+
+    // NOTE: Default light.
+    new WHS.AmbientLight({
+      light: {
+        color: 0xffffff,
+        intensity: 0.2
+      },
+
+      pos: {
+        x: 160, // 100,
+        y: 120, // 30,
+        z: 160 // 100
+      },
+
+      target: {
+        x: 0,
+        y: 10,
+        z: 0
+      }
+    }).addTo(GAME);
+
+    // NOTE: Default light.
+    new WHS.SpotLight({
+      light: {
+        color: 0xffffff, // 0x00ff00,
+        intensity: 0.3,
+        distance: 500
+      },
+
+      shadowmap: {
+        width: 2048,
+        height: 2048,
+        top: 0,
+        fov: 90
+      },
+
+      pos: {
+        x: 160, // 100,
+        y: 120, // 30,
+        z: 160 // 100
+      },
+
+      target: {
+        x: 0,
+        y: 10,
+        z: 0
+      }
+    }).addTo(GAME);
+
+    const parrot = new WHS.Morph({
+
+      geometry: {
+        width: 2,
+        height: 2,
+        depth: 2,
+        path: 'assets/models/morph/parrot.js'
+      },
+
+      material: {
+        useVertexColors: true,
+        kind: 'lambert'
+      },
+
+      pos: {
+        x: 70,
+        y: 72,
+        z: 70
+      },
+
+      scale: {
+        x: 0.1,
+        y: 0.1,
+        z: 0.1
+      },
+
+      morph: {
+        duration: 0.4,
+        speed: 200
+      }
+
+    });
+
+    const parrotPath = [
+      new THREE.CubicBezierCurve3(
+          new THREE.Vector3(-100, 100, 50),
+          new THREE.Vector3(-200, 120, -50),
+          new THREE.Vector3(200, 120, -50),
+          new THREE.Vector3(100, 100, 50)
+        ),
+      new THREE.CubicBezierCurve3(
+          new THREE.Vector3(100, 100, 50),
+          new THREE.Vector3(-200, 80, 150),
+          new THREE.Vector3(200, 60, 150),
+          new THREE.Vector3(-100, 100, 50)
+        )
+    ];
+
+    const parrotgoes = new THREE.CurvePath();
+
+    parrotgoes.add(parrotPath[0]);
+    parrotgoes.add(parrotPath[1]);
+
+    const flamingo = new WHS.Morph({
+      geometry: {
+        width: 2,
+        height: 2,
+        depth: 2,
+        path: 'assets/models/morph/flamingo.js'
+      },
+
+      material: {
+        useVertexColors: true,
+        kind: 'lambert'
+      },
+
+      pos: {
+        x: 70,
+        y: 72,
+        z: 70
+      },
+
+      scale: {
+        x: 0.1,
+        y: 0.1,
+        z: 0.1
+      },
+
+      morph: {
+        duration: 2,
+        speed: 50
+      }
+    });
+
+    const flamingoPath = [
+      new THREE.CubicBezierCurve3(
+          new THREE.Vector3(-100, 100, 50),
+          new THREE.Vector3(-100, 160, 300),
+          new THREE.Vector3(200, 180, 30),
+          new THREE.Vector3(100, 140, 80)
+        ),
+      new THREE.CubicBezierCurve3(
+          new THREE.Vector3(100, 140, 80),
+          new THREE.Vector3(200, 80, 150),
+          new THREE.Vector3(-200, 60, -100),
+          new THREE.Vector3(200, 100, 350)
+        ),
+      new THREE.CubicBezierCurve3(
+          new THREE.Vector3(200, 100, 350),
+          new THREE.Vector3(200, 80, 150),
+          new THREE.Vector3(-200, 60, -100),
+          new THREE.Vector3(-100, 100, 50)
+        )
+    ];
+
+    const flamingogoes = new THREE.CurvePath();
+
+    flamingogoes.add(flamingoPath[0]);
+    flamingogoes.add(flamingoPath[1]);
+    flamingogoes.add(flamingoPath[2]);
+
+    flamingo.addTo(GAME, 'wait').then((obj) => {
+      obj.follow(
+        parrotgoes, // flamingogoes
+        26000,
+        true
+      );
+    });
+
+    parrot.addTo(GAME, 'wait').then((obj) => {
+      obj.follow(
+        flamingogoes,
+        20000,
+        true
+      );
+    });
+
+    /*
+    new WHS.Skybox({
+      path: 'assets/textures/skybox/skymap',
+      imgSuffix: '.png',
+      skyType: 'sphere',
+      radius: GAME.camera.params.camera.far,
+      rot: {y: Math.PI / 180 * -90},
+      pos: {y: -200}
+    }).addTo(GAME);
+    */
+
+    const box = new WHS.Box({
+      geometry: {
+        width: 2,
+        height: 2,
+        depth: 2
+      },
+
+      mass: 1,
+      onlyvis: false,
+
+      material: {
+        kind: 'lambert',
+        map: WHS.texture('assets/textures/box.jpg')
+      },
+
+      pos: {
+        x: 50,
+        y: 70,
+        z: 60
+      }
+    });
+
+    GAME.add(box).then(() => {
+      const checker1 = new WHS.Loop(() => {
+        if (box.position.y < -200) {
+          box.position.set(50, 70, 60);
+
+          box.setAngularVelocity(new THREE.Vector3(0, 0, 0));
+          box.setLinearVelocity(new THREE.Vector3(0, 0, 0));
+        }
+      });
+
+      GAME.addLoop(checker1);
+
+      checker1.start();
+    });
+
+    new WHS.Box({
+      geometry: {
+        width: 2,
+        height: 2,
+        depth: 2
+      },
+
+      mass: 1,
+
+      material: {
+        kind: 'lambert',
+        map: WHS.texture('assets/textures/box.jpg')
+      },
+
+      pos: {
+        x: 30,
+        y: 50,
+        z: 0
+      }
+    }).addTo(GAME);
+
+    const person = new WHS.Sphere({
+      geometry: {
+        radius: 2
+      },
+
+      mass: 10,
+
+      physics: {
+        friction: 1,
+        restitution: 0
+      },
+
+      material: {
+        color: 0xffffff,
+        kind: 'lambert'
+      },
+
+      pos: {
+        x: 0,
+        y: 100,
+        z: 0
+      }
+    });
+
+    console.log(person.native);
+
+    GAME.add(person).then(() => {
+      const checker2 = new WHS.Loop(() => {
+        if (person.position.y < -200) {
+          person.position.set(0, 100, 0);
+
+          person.setAngularVelocity(new THREE.Vector3(0, 0, 0));
+          person.setLinearVelocity(new THREE.Vector3(0, 0, 0));
+        }
+      });
+
+      GAME.addLoop(checker2);
+
+      checker2.start();
+    });
+
+    GAME.setControls(
+      WHS.firstPersonControls(person, {
+        speed: 5
+      })
+    );
+
+    GAME.start();
+
+    </script>
+  </body>
+</html>

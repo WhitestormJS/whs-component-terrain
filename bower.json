@@ -1,0 +1,17 @@
+{
+  "name": "whs-component-terrain",
+  "description": "Whitestorm.js Terrain component",
+  "main": "build/whs-component-terrain.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "whs-component"
+  ],
+  "ignore": [
+    "node_modules",
+    "src",
+    "lib",
+    "examples",
+  ]
+}
