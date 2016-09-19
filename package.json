@@ -40,12 +40,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WhitestormJS/whs-plugin-Terrain.git"
+    "url": "git+https://github.com/WhitestormJS/whs-component-terrain.git"
   },
   "author": "Alexander Buzin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/WhitestormJS/whs-plugin-Terrain/issues"
+    "url": "https://github.com/WhitestormJS/whs-component-terrain/issues"
   },
-  "homepage": "https://github.com/WhitestormJS/whs-plugin-Terrain#readme"
+  "homepage": "https://github.com/WhitestormJS/whs-component-terrain#readme"
 }
