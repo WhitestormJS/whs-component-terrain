@@ -94,7 +94,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _ShaderTerrain2 = _interopRequireDefault(_ShaderTerrain);
 	
-	var _persets = __webpack_require__(95);
+	var _presets = __webpack_require__(95);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -139,7 +139,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        canvas.setAttribute('width', rx);
 	        canvas.setAttribute('height', ry);
 	
-	        var textures = typeof params.material[0] === 'string' ? (0, _persets.loadPerset)((0, _persets.persets)()[params.material[0]], params.material[1]) : params.material;
+	        var textures = typeof params.material[0] === 'string' ? (0, _presets.loadPerset)((0, _presets.presets)()[params.material[0]], params.material[1]) : params.material;
 	
 	        var pars = {
 	          minFilter: THREE.LinearFilter,
@@ -1934,9 +1934,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.persets = persets;
+	exports.presets = presets;
 	exports.loadPerset = loadPerset;
-	function persets() {
+	function presets() {
 	  return {
 	    default: [{
 	      from: [0.1, 0.25],
@@ -1961,10 +1961,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	}
 	
-	function loadPerset(perset, textures) {
-	  for (var i = 0; i < perset.length; i++) {
-	    perset[i].texture = textures[i];
-	  }return perset;
+	function loadPerset(preset, textures) {
+	  for (var i = 0; i < preset.length; i++) {
+	    preset[i].texture = textures[i];
+	  }return preset;
 	}
 
 /***/ }

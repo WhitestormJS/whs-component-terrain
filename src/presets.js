@@ -1,4 +1,4 @@
-export function persets() {
+export function presets() {
   return {
     default: [
       {
@@ -29,7 +29,7 @@ export function persets() {
   };
 }
 
-export function loadPerset(perset, textures) {
-  for (let i = 0; i < perset.length; i++) perset[i].texture = textures[i];
-  return perset;
+export function loadPerset(preset, textures) {
+  for (let i = 0; i < preset.length; i++) preset[i].texture = textures[i];
+  return preset;
 }

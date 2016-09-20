@@ -3,7 +3,7 @@ import * as Physijs from 'whitestormjs/physics/index';
 
 import {Shape, extend, TextureLoader} from 'whitestormjs';
 import shaderTerrain from './shaders/ShaderTerrain';
-import {persets, loadPerset} from './persets';
+import {presets, loadPerset} from './presets';
 
 export default class Terrain extends Shape {
   constructor(params = {}) {
@@ -33,7 +33,7 @@ export default class Terrain extends Shape {
       canvas.setAttribute('height', ry);
 
       const textures = typeof params.material[0] === 'string'
-        ? loadPerset(persets()[params.material[0]], params.material[1])
+        ? loadPerset(presets()[params.material[0]], params.material[1])
         : params.material;
 
       const pars = {

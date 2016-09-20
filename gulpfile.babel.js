@@ -81,6 +81,12 @@ gulp.task('build:clean', (callback) => {
   del([`${pluginDest}/*.js`, `${pluginDest}/*.map`, './lib/**/*.js', './lib/**/*.map', './lib/*']).then(() => callback());
 });
 
+// VENDOR
+gulp.task('vendor', (callback) => {
+  gulp.src('./node_modules/whitestormjs/build/whitestorm.js')
+    .pipe(gulp.dest('./vendor/'));
+});
+
 // ERRORS
 function makeBuildErrorHandler(taskName) {
   return function ({name, message, codeFrame}) {
