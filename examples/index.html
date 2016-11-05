@@ -147,7 +147,7 @@
     <script src="../vendor/whitestorm.js"></script>
     <script src="../build/whs-component-terrain.js"></script>
     <script type="text/javascript">
-    const GAME = new WHS.World({
+    const world = new WHS.World({
       stats: 'fps', // fps, ms, mb
       autoresize: "window",
 
@@ -161,12 +161,14 @@
         far: 10000
       },
 
-      shadowmap: {
-        type: THREE.PCFShadowMap
-      },
+      rendering: {
+        shadowmap: {
+          // type: THREE.PCFShadowMap
+        },
 
-      physics: {
-        fixedTimeStep: 1 / 120
+        background: {
+          color: 0xffffff
+        }
       },
 
       background: {
@@ -199,14 +201,14 @@
         ]
       ],
 
-      pos: {
+      position: {
         x: 0,
         y: 0,
         z: 0
       }
     });
 
-    terrain.addTo(GAME, 'wait');
+    terrain.addTo(world, 'wait');
 
     // NOTE: Default light.
     new WHS.AmbientLight({
@@ -215,7 +217,7 @@
         intensity: 0.2
       },
 
-      pos: {
+      position: {
         x: 160, // 100,
         y: 120, // 30,
         z: 160 // 100
@@ -226,7 +228,7 @@
         y: 10,
         z: 0
       }
-    }).addTo(GAME);
+    }).addTo(world);
 
     // NOTE: Default light.
     new WHS.SpotLight({
@@ -243,7 +245,7 @@
         fov: 90
       },
 
-      pos: {
+      position: {
         x: 160, // 100,
         y: 120, // 30,
         z: 160 // 100
@@ -254,8 +256,8 @@
         y: 10,
         z: 0
       }
-    }).addTo(GAME);
-
+    }).addTo(world);
+/*
     const parrot = new WHS.Morph({
 
       geometry: {
@@ -270,7 +272,7 @@
         kind: 'lambert'
       },
 
-      pos: {
+      position: {
         x: 70,
         y: 72,
         z: 70
@@ -322,7 +324,7 @@
         kind: 'lambert'
       },
 
-      pos: {
+      position: {
         x: 70,
         y: 72,
         z: 70
@@ -367,7 +369,7 @@
     flamingogoes.add(flamingoPath[1]);
     flamingogoes.add(flamingoPath[2]);
 
-    flamingo.addTo(GAME, 'wait').then((obj) => {
+    flamingo.addTo(world, 'wait').then((obj) => {
       obj.follow(
         parrotgoes, // flamingogoes
         26000,
@@ -375,23 +377,23 @@
       );
     });
 
-    parrot.addTo(GAME, 'wait').then((obj) => {
+    parrot.addTo(world, 'wait').then((obj) => {
       obj.follow(
         flamingogoes,
         20000,
         true
       );
-    });
+    });*/
 
     /*
     new WHS.Skybox({
       path: 'assets/textures/skybox/skymap',
       imgSuffix: '.png',
       skyType: 'sphere',
-      radius: GAME.camera.params.camera.far,
+      radius: world.camera.params.camera.far,
       rot: {y: Math.PI / 180 * -90},
-      pos: {y: -200}
-    }).addTo(GAME);
+      position: {y: -200}
+    }).addTo(world);
     */
 
     const box = new WHS.Box({
@@ -409,14 +411,14 @@
         map: WHS.texture('assets/textures/box.jpg')
       },
 
-      pos: {
+      position: {
         x: 50,
         y: 70,
         z: 60
       }
     });
 
-    GAME.add(box).then(() => {
+    world.add(box).then(() => {
       const checker1 = new WHS.Loop(() => {
         if (box.position.y < -200) {
           box.position.set(50, 70, 60);
@@ -426,7 +428,7 @@
         }
       });
 
-      GAME.addLoop(checker1);
+      world.addLoop(checker1);
 
       checker1.start();
     });
@@ -445,12 +447,12 @@
         map: WHS.texture('assets/textures/box.jpg')
       },
 
-      pos: {
+      position: {
         x: 30,
         y: 50,
         z: 0
       }
-    }).addTo(GAME);
+    }).addTo(world);
 
     const person = new WHS.Sphere({
       geometry: {
@@ -469,16 +471,29 @@
         kind: 'lambert'
       },
 
-      pos: {
+      position: {
         x: 0,
         y: 100,
         z: 0
       }
     });
 
-    console.log(person.native);
+    // new WHS.DirectionalLight({
+    //   light: {
+    //     distance: 50,
+    //     intensity: 0.3
+    //   },
 
-    GAME.add(person).then(() => {
+    //   position: [-50, 100, 50],
+
+    //   shadowmap: {
+    //     bias: 0.001,
+    //     width: 2048,
+    //     height: 2048,
+    //   }
+    // }).addTo(world);
+
+    world.add(person).then(() => {
       const checker2 = new WHS.Loop(() => {
         if (person.position.y < -200) {
           person.position.set(0, 100, 0);
@@ -488,18 +503,18 @@
         }
       });
 
-      GAME.addLoop(checker2);
+      world.addLoop(checker2);
 
       checker2.start();
     });
 
-    GAME.setControls(
-      WHS.firstPersonControls(person, {
+    world.setControls(
+      new WHS.FirstPersonControls(person, {
         speed: 5
       })
     );
 
-    GAME.start();
+    world.start();
 
     </script>
   </body>

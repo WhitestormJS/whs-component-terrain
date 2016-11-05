@@ -25,9 +25,11 @@ export function config({isProduction, pluginSrc, pluginDest}) {
       loaders: [
         {
           test: /\.js$/,
-          exclude: /node_modules/,
-          loader: 'babel',
-          happy: { id: 'js' }
+          exclude: [
+            /node_modules/,
+            /ammo\.js/
+          ],
+          loader: 'babel'
         }
       ]
     },

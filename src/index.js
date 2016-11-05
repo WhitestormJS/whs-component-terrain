@@ -1,21 +1,25 @@
 import * as THREE from 'three';
 import * as Physijs from 'whitestormjs/physics/index';
 
-import {Shape, extend, TextureLoader} from 'whitestormjs';
+import {Component, MeshComponent, PhysicsComponent, TextureLoader} from 'whs';
 import shaderTerrain from './shaders/ShaderTerrain';
 import {presets, loadPerset} from './presets';
 
-export default class Terrain extends Shape {
-  constructor(params = {}) {
-    super(params, 'terrain');
-
-    extend(params.geometry, {
+@PhysicsComponent
+@MeshComponent
+export default class Terrain extends Component {
+  static defaults = {
+    geometry: {
       width: 1,
       height: 1,
       depth: 1,
       map: false,
       normalMap: false
-    });
+    }
+  }
+
+  constructor(params = {}) {
+    super(params, Terrain.defaults, Terrain.instructions);
 
     this.build(params);
     super.wrap().then((obj) => {
