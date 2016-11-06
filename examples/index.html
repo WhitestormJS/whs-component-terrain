@@ -127,9 +127,8 @@
   <body>
   <div id="blocker">
     <div class="content">
-      <h1>First Person game <sub>by whitestorm.js</sub></h1>
+      <h1>First Person</h1>
     </div>
-    <!--<img class="controls" src="assets/keys.gif"/>-->
     <div class="links">
       <p>
         <h3 style="color: white;">Click anywhere to begin.</h3>
@@ -138,11 +137,6 @@
         *Take a tour around this scene,
         use the WASD keys to move and your mouse to look around.
       </p>
-      <ul>
-        <li><a href="http://github.com/whitestormjs/whitestorm.js" target="_blank" title="collaborate in github"><span class="icon-github"></a></span> </li>
-        <li><a href="https://twitter.com/whitestormjs" target="_blank" title="we in twitter"><span class="icon-twitter"></a></span> </li>
-      </ul>
-    </div>
   </div>
     <script src="../vendor/whitestorm.js"></script>
     <script src="../build/whs-component-terrain.js"></script>
@@ -162,10 +156,6 @@
       },
 
       rendering: {
-        shadowmap: {
-          // type: THREE.PCFShadowMap
-        },
-
         background: {
           color: 0xffffff
         }
@@ -257,144 +247,6 @@
         z: 0
       }
     }).addTo(world);
-/*
-    const parrot = new WHS.Morph({
-
-      geometry: {
-        width: 2,
-        height: 2,
-        depth: 2,
-        path: 'assets/models/morph/parrot.js'
-      },
-
-      material: {
-        useVertexColors: true,
-        kind: 'lambert'
-      },
-
-      position: {
-        x: 70,
-        y: 72,
-        z: 70
-      },
-
-      scale: {
-        x: 0.1,
-        y: 0.1,
-        z: 0.1
-      },
-
-      morph: {
-        duration: 0.4,
-        speed: 200
-      }
-
-    });
-
-    const parrotPath = [
-      new THREE.CubicBezierCurve3(
-          new THREE.Vector3(-100, 100, 50),
-          new THREE.Vector3(-200, 120, -50),
-          new THREE.Vector3(200, 120, -50),
-          new THREE.Vector3(100, 100, 50)
-        ),
-      new THREE.CubicBezierCurve3(
-          new THREE.Vector3(100, 100, 50),
-          new THREE.Vector3(-200, 80, 150),
-          new THREE.Vector3(200, 60, 150),
-          new THREE.Vector3(-100, 100, 50)
-        )
-    ];
-
-    const parrotgoes = new THREE.CurvePath();
-
-    parrotgoes.add(parrotPath[0]);
-    parrotgoes.add(parrotPath[1]);
-
-    const flamingo = new WHS.Morph({
-      geometry: {
-        width: 2,
-        height: 2,
-        depth: 2,
-        path: 'assets/models/morph/flamingo.js'
-      },
-
-      material: {
-        useVertexColors: true,
-        kind: 'lambert'
-      },
-
-      position: {
-        x: 70,
-        y: 72,
-        z: 70
-      },
-
-      scale: {
-        x: 0.1,
-        y: 0.1,
-        z: 0.1
-      },
-
-      morph: {
-        duration: 2,
-        speed: 50
-      }
-    });
-
-    const flamingoPath = [
-      new THREE.CubicBezierCurve3(
-          new THREE.Vector3(-100, 100, 50),
-          new THREE.Vector3(-100, 160, 300),
-          new THREE.Vector3(200, 180, 30),
-          new THREE.Vector3(100, 140, 80)
-        ),
-      new THREE.CubicBezierCurve3(
-          new THREE.Vector3(100, 140, 80),
-          new THREE.Vector3(200, 80, 150),
-          new THREE.Vector3(-200, 60, -100),
-          new THREE.Vector3(200, 100, 350)
-        ),
-      new THREE.CubicBezierCurve3(
-          new THREE.Vector3(200, 100, 350),
-          new THREE.Vector3(200, 80, 150),
-          new THREE.Vector3(-200, 60, -100),
-          new THREE.Vector3(-100, 100, 50)
-        )
-    ];
-
-    const flamingogoes = new THREE.CurvePath();
-
-    flamingogoes.add(flamingoPath[0]);
-    flamingogoes.add(flamingoPath[1]);
-    flamingogoes.add(flamingoPath[2]);
-
-    flamingo.addTo(world, 'wait').then((obj) => {
-      obj.follow(
-        parrotgoes, // flamingogoes
-        26000,
-        true
-      );
-    });
-
-    parrot.addTo(world, 'wait').then((obj) => {
-      obj.follow(
-        flamingogoes,
-        20000,
-        true
-      );
-    });*/
-
-    /*
-    new WHS.Skybox({
-      path: 'assets/textures/skybox/skymap',
-      imgSuffix: '.png',
-      skyType: 'sphere',
-      radius: world.camera.params.camera.far,
-      rot: {y: Math.PI / 180 * -90},
-      position: {y: -200}
-    }).addTo(world);
-    */
 
     const box = new WHS.Box({
       geometry: {
@@ -477,21 +329,6 @@
         z: 0
       }
     });
-
-    // new WHS.DirectionalLight({
-    //   light: {
-    //     distance: 50,
-    //     intensity: 0.3
-    //   },
-
-    //   position: [-50, 100, 50],
-
-    //   shadowmap: {
-    //     bias: 0.001,
-    //     width: 2048,
-    //     height: 2048,
-    //   }
-    // }).addTo(world);
 
     world.add(person).then(() => {
       const checker2 = new WHS.Loop(() => {
