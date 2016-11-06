@@ -1,6 +1,6 @@
 {
   "name": "whs-component-terrain",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Whitestorm.js Terrain component",
   "main": "lib/index.js",
   "scripts": {
