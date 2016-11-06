@@ -4,6 +4,8 @@
   "description": "Whitestorm.js Terrain component",
   "main": "lib/index.js",
   "scripts": {
+    "preversion": "set NODE_ENV=production & gulp build",
+    "postversion": "set NODE_ENV=development",
     "build": "gulp src:build",
     "dev": "gulp dev"
   },
