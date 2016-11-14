@@ -33,14 +33,13 @@
     "path": "^0.12.7",
     "serve-index": "^1.8.0",
     "webpack": "^1.13.1",
-    "webpack-dev-middleware": "^1.7.0",
-    "whs": "^0.12.0-dev.3"
+    "webpack-dev-middleware": "^1.7.0"
   },
   "directories": {
     "example": "examples"
   },
   "dependencies": {
-    "whitestormjs": "^0.12.0-dev.1"
+    "whs": "^1.1.6"
   },
   "repository": {
     "type": "git",
