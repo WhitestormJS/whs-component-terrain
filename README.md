@@ -97,4 +97,4 @@ WhitestormJS Terrain plugin
 
 # Result
 
-![Result](https://cdn.pbrd.co/images/516FNEvR9.png)
+[![Result](https://cdn.pbrd.co/images/516FNEvR9.png)](whsjs.io/whs-component-terrain/examples/)
